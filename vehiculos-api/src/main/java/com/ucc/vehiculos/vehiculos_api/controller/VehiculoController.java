@@ -26,29 +26,6 @@ public class VehiculoController {
         this.vehiculoRepository = vehiculoRepository;
     }
 
-    /**
-     * Ejemplos de prueba con curl/Postman:
-     *
-     * GET  http://localhost:8080/api/vehiculos
-     * GET  http://localhost:8080/api/vehiculos/{id}
-     *
-     * POST http://localhost:8080/api/vehiculos
-     * Body (JSON):
-     * {
-     *   "marca": "Toyota",
-     *   "modelo": "Corolla",
-     *   "anio": 2020,
-     *   "color": "Blanco",
-     *   "placa": "ABC123",
-     *   "tipo": "carro"
-     * }
-     *
-     * PUT http://localhost:8080/api/vehiculos/{id}
-     * Body (JSON similar al POST)
-     *
-     * DELETE http://localhost:8080/api/vehiculos/{id}
-     */
-
     @GetMapping
     public List<Vehiculo> getAllVehiculos() {
         return vehiculoRepository.findAll();
