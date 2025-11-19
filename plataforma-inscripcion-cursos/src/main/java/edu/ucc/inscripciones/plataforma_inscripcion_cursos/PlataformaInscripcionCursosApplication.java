@@ -10,6 +10,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PlataformaInscripcionCursosApplication {
 
 	public static void main(String[] args) {
+		// Fuerza el uso de TLS 1.2 para la comunicación con MongoDB Atlas.
+		// Esto evita errores de handhsake SSL del tipo "Received fatal alert: internal_error"
+		// que pueden aparecer con la negociación por defecto de TLS en algunas combinaciones
+		// de JDK / sistema operativo / red.
+		System.setProperty("jdk.tls.client.protocols", "TLSv1.2");
+
 		SpringApplication.run(PlataformaInscripcionCursosApplication.class, args);
 	}
 
