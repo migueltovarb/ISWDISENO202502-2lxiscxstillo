@@ -1,0 +1,208 @@
+| **ID:** EC001 | **Atributo de Calidad (ISO/IEC 25010):** Seguridad - Autenticidad / Autorización | **Versión** | **1.0** |
+|----------------|-------------------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Usuario o cliente de API no autenticado o con sesión expirada |
+| **Estímulo** | Intenta invocar un servicio de consulta, inscripción o gestión sin credenciales válidas o sin sesión activa |
+| **Artefacto** | Servicios de backend de autenticación y autorización |
+| **Ambiente** | Sistema en operación normal con múltiples solicitudes concurrentes |
+| **Respuesta** | El sistema rechaza la solicitud, no ejecuta la operación de negocio y devuelve una respuesta de error indicando falta de autenticación/autorización |
+| **Medida de Respuesta** | 100% de las solicitudes sin credenciales válidas o sin sesión activa deben ser rechazadas en pruebas funcionales y de seguridad |
+markdown
+Copiar código
+| **ID:** EC002 | **Atributo de Calidad (ISO/IEC 25010):** Seguridad - Confidencialidad | **Versión** | **1.0** |
+|----------------|--------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Auditor de seguridad o administrador de base de datos |
+| **Estímulo** | Revisión del almacenamiento de credenciales de usuarios en la base de datos |
+| **Artefacto** | Módulo de persistencia de usuarios y contraseñas |
+| **Ambiente** | Sistema en operación normal, con base de datos poblada de usuarios |
+| **Respuesta** | Las contraseñas no son legibles en texto plano y se almacenan únicamente en forma cifrada/hasheada |
+| **Medida de Respuesta** | 100% de los registros de contraseñas inspeccionados durante auditorías deben encontrarse cifrados/hasheados |
+markdown
+Copiar código
+| **ID:** EC003 | **Atributo de Calidad (ISO/IEC 25010):** Seguridad - Autorización / Integridad | **Versión** | **1.0** |
+|----------------|-------------------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Usuario con rol de estudiante o cliente API sin rol de administrador |
+| **Estímulo** | Intenta invocar servicios de creación, actualización o cambio de estado de cursos, profesores u horarios |
+| **Artefacto** | Servicios de backend de gestión académica (cursos, profesores, horarios) |
+| **Ambiente** | Sistema en operación normal con usuarios de distintos roles concurrentemente |
+| **Respuesta** | El sistema bloquea la operación de gestión y devuelve una respuesta de error de autorización sin ejecutar cambios de datos |
+| **Medida de Respuesta** | 100% de las solicitudes a servicios de gestión provenientes de usuarios no administradores deben ser rechazadas en pruebas de control de acceso |
+markdown
+Copiar código
+| **ID:** EC004 | **Atributo de Calidad (ISO/IEC 25010):** Seguridad - Autenticidad / Confidencialidad | **Versión** | **1.0** |
+|----------------|-------------------------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Usuario autenticado que deja de interactuar con el sistema |
+| **Estímulo** | Transcurre un periodo de inactividad superior al tiempo de expiración configurado para la sesión |
+| **Artefacto** | Mecanismo de gestión de sesiones en el backend |
+| **Ambiente** | Sistema en operación normal con múltiples sesiones simultáneas |
+| **Respuesta** | El sistema invalida la sesión del usuario y requiere autenticación nuevamente para cualquier operación posterior |
+| **Medida de Respuesta** | 100% de las sesiones inactivas por encima del umbral configurado deben cerrarse en pruebas de expiración de sesión |
+markdown
+Copiar código
+| **ID:** EC005 | **Atributo de Calidad (ISO/IEC 25010):** Seguridad - Confidencialidad | **Versión** | **1.0** |
+|----------------|--------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Atacante que intenta descubrir credenciales de administrador por fuerza bruta |
+| **Estímulo** | Envía múltiples intentos de autenticación con usuario/correo de administrador y contraseñas incorrectas |
+| **Artefacto** | Servicio de autenticación de administradores |
+| **Ambiente** | Sistema en operación normal durante intentos fallidos de login |
+| **Respuesta** | El sistema devuelve siempre un mensaje genérico de error de autenticación sin revelar detalles internos (por ejemplo, si el usuario existe o no) |
+| **Medida de Respuesta** | 100% de las respuestas a credenciales inválidas deben contener mensajes genéricos sin información sensible en pruebas de seguridad |
+markdown
+Copiar código
+| **ID:** EC006 | **Atributo de Calidad (ISO/IEC 25010):** Adecuación Funcional - Exactitud / Integridad de datos | **Versión** | **1.0** |
+|----------------|------------------------------------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Cliente de API que envía datos de alta o actualización (estudiantes, cursos, profesores, horarios) |
+| **Estímulo** | Envía una solicitud con campos obligatorios vacíos o con formato inválido (correo incorrecto, cupo <= 0, etc.) |
+| **Artefacto** | Servicios de backend de registro y actualización de entidades (usuarios, cursos, profesores, horarios) |
+| **Ambiente** | Sistema en operación normal, recibiendo peticiones de alta/edición |
+| **Respuesta** | El sistema rechaza la operación, no persiste cambios y devuelve un error indicando que los datos no cumplen las validaciones |
+| **Medida de Respuesta** | 100% de las solicitudes con datos obligatorios faltantes o formato inválido deben ser rechazadas en pruebas de validación de datos |
+markdown
+Copiar código
+| **ID:** EC007 | **Atributo de Calidad (ISO/IEC 25010):** Seguridad - Integridad / Adecuación Funcional | **Versión** | **1.0** |
+|----------------|---------------------------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Cliente de API que intenta registrar entidades ya existentes (estudiante, curso, profesor) |
+| **Estímulo** | Envía solicitudes de creación con número de estudiante, correo institucional o identificación de profesor que ya existen; o curso duplicado según políticas de nombre/tipo |
+| **Artefacto** | Servicios de backend de registro de estudiantes, cursos y profesores |
+| **Ambiente** | Sistema en operación normal con base de datos ya poblada |
+| **Respuesta** | El sistema rechaza el alta, mantiene los registros existentes sin cambios y devuelve un error de duplicidad conforme a las reglas de negocio |
+| **Medida de Respuesta** | 100% de las solicitudes que violen las restricciones de unicidad deben ser rechazadas en pruebas de integridad de datos |
+markdown
+Copiar código
+| **ID:** EC008 | **Atributo de Calidad (ISO/IEC 25010):** Seguridad - Integridad / Adecuación Funcional | **Versión** | **1.0** |
+|----------------|---------------------------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Administrador que crea horarios para un curso |
+| **Estímulo** | Envía una petición de creación de horario cuyo rango horario se solapa con otro horario ya definido para el mismo curso y grupo |
+| **Artefacto** | Servicio de backend de gestión de horarios |
+| **Ambiente** | Sistema en operación normal con horarios existentes configurados |
+| **Respuesta** | El sistema rechaza la creación del nuevo horario y devuelve una respuesta indicando solapamiento según las políticas académicas |
+| **Medida de Respuesta** | 100% de los intentos de creación de horarios superpuestos deben ser detectados y rechazados en pruebas de reglas de negocio |
+markdown
+Copiar código
+| **ID:** EC009 | **Atributo de Calidad (ISO/IEC 25010):** Fiabilidad - Tolerancia a fallos / Integridad | **Versión** | **1.0** |
+|----------------|---------------------------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Estudiante que realiza una inscripción o pago; o falla técnica durante el proceso |
+| **Estímulo** | Se produce un error durante el registro de la inscripción o actualización de cupos (fallo de red, error de base de datos, fallo en pago) |
+| **Artefacto** | Servicios de backend de inscripción y actualización de cupos |
+| **Ambiente** | Sistema en operación normal con posibles fallos puntuales de infraestructura o servicios externos |
+| **Respuesta** | El sistema revierte la operación, no registra la inscripción, no modifica los cupos y devuelve un error indicando que la operación no se completó |
+| **Medida de Respuesta** | En pruebas de fallo forzado, 100% de las operaciones de inscripción con error deben dejar el estado de cupos e inscripciones sin cambios |
+markdown
+Copiar código
+| **ID:** EC010 | **Atributo de Calidad (ISO/IEC 25010):** Seguridad - Integridad / Fiabilidad | **Versión** | **1.0** |
+|----------------|----------------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Múltiples estudiantes que intentan inscribirse o pagar para el mismo horario de un curso |
+| **Estímulo** | Varias solicitudes concurrentes de inscripción o pago se realizan sobre un horario con cupos limitados |
+| **Artefacto** | Servicios de backend de inscripción y manejo de cupos |
+| **Ambiente** | Sistema en operación normal con concurrencia de solicitudes |
+| **Respuesta** | El sistema asegura que el número total de inscripciones confirmadas no supera el cupo máximo del horario, rechazando las solicitudes sobrantes |
+| **Medida de Respuesta** | En pruebas de concurrencia, el número de inscripciones confirmadas para un horario nunca debe exceder el cupo máximo configurado |
+markdown
+Copiar código
+| **ID:** EC011 | **Atributo de Calidad (ISO/IEC 25010):** Adecuación Funcional - Exactitud / Integridad | **Versión** | **1.0** |
+|----------------|--------------------------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Estudiante o cliente de API que consulta horarios y cupos de un curso |
+| **Estímulo** | Invoca el servicio de consulta de horarios/cupos para un curso determinado |
+| **Artefacto** | Servicio de backend de consulta de horarios y cálculo de cupos |
+| **Ambiente** | Sistema en operación normal con inscripciones registradas en distintos horarios |
+| **Respuesta** | El sistema devuelve para cada horario el número de cupos disponibles calculado a partir del cupo máximo menos las inscripciones confirmadas |
+| **Medida de Respuesta** | En pruebas de consistencia, 100% de los cupos mostrados deben corresponder al cálculo cupo máximo – inscripciones confirmadas |
+markdown
+Copiar código
+| **ID:** EC012 | **Atributo de Calidad (ISO/IEC 25010):** Seguridad - Integridad / Adecuación Funcional | **Versión** | **1.0** |
+|----------------|----------------------------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Estudiante o administrador que consulta listados de cursos, profesores u horarios disponibles |
+| **Estímulo** | Invoca servicios de consulta de entidades filtradas por estado (activo/inactivo) |
+| **Artefacto** | Servicios de backend de consulta de cursos, profesores y horarios |
+| **Ambiente** | Sistema en operación normal, con entidades en distintos estados (activo/inactivo) |
+| **Respuesta** | El sistema devuelve únicamente entidades activas como disponibles para nuevas inscripciones o asignaciones, excluyendo las inactivas |
+| **Medida de Respuesta** | En pruebas, 0 entidades inactivas deben aparecer como disponibles en las respuestas de servicios de consulta |
+markdown
+Copiar código
+| **ID:** EC013 | **Atributo de Calidad (ISO/IEC 25010):** Fiabilidad - Madurez / Integridad | **Versión** | **1.0** |
+|----------------|-----------------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Administrador que desactiva cursos, profesores u horarios |
+| **Estímulo** | Cambia el estado de una entidad a inactiva mediante los servicios de gestión |
+| **Artefacto** | Servicios de backend de cambio de estado y modelo de datos histórico |
+| **Ambiente** | Sistema en operación normal con inscripciones históricas ya registradas |
+| **Respuesta** | El sistema marca la entidad como inactiva pero conserva los registros históricos de inscripciones y participaciones asociados sin eliminarlos |
+| **Medida de Respuesta** | En pruebas de desactivación, 100% de las inscripciones históricas deben seguir existiendo tras el cambio de estado |
+markdown
+Copiar código
+| **ID:** EC014 | **Atributo de Calidad (ISO/IEC 25010):** Fiabilidad - Tolerancia a fallos / Integridad | **Versión** | **1.0** |
+|----------------|---------------------------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Administrador que actualiza cursos, profesores u horarios |
+| **Estímulo** | Envía una solicitud de actualización que genera un error (por ejemplo, fallo de base de datos) durante el proceso |
+| **Artefacto** | Servicios de backend de actualización de entidades |
+| **Ambiente** | Sistema en operación normal con posibilidad de fallos puntuales en operaciones de actualización |
+| **Respuesta** | El sistema descarta la actualización y mantiene los datos en el estado previo, sin aplicar cambios parciales |
+| **Medida de Respuesta** | En pruebas de fallo de actualización, 100% de las entidades afectadas deben conservar exactamente su estado anterior al error |
+markdown
+Copiar código
+| **ID:** EC015 | **Atributo de Calidad (ISO/IEC 25010):** Eficiencia del desempeño - Comportamiento temporal | **Versión** | **1.0** |
+|----------------|------------------------------------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Estudiante o cliente de API que consulta el listado de cursos disponibles |
+| **Estímulo** | Invoca el servicio de consulta de cursos para obtener el catálogo disponible |
+| **Artefacto** | Servicio de backend de listado de cursos |
+| **Ambiente** | Sistema en operación normal con una cantidad representativa de cursos registrados |
+| **Respuesta** | El servicio devuelve el listado de cursos activos sin errores de carga y dentro de un tiempo de respuesta considerado razonable según los criterios acordados con el cliente |
+| **Medida de Respuesta** | En pruebas de aceptación se medirá el tiempo de respuesta y se verificará que se mantiene dentro del umbral de “tiempo razonable” definido para el proyecto |
+markdown
+Copiar código
+| **ID:** EC016 | **Atributo de Calidad (ISO/IEC 25010):** Compatibilidad / Interoperabilidad | **Versión** | **1.0** |
+|----------------|--------------------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Servicio externo de pago en línea y backend de la plataforma |
+| **Estímulo** | El backend solicita procesar un pago y el servicio externo devuelve el resultado como aprobado o rechazado |
+| **Artefacto** | Servicio de integración de pagos en el backend |
+| **Ambiente** | Sistema en operación normal con comunicación hacia el proveedor de pagos |
+| **Respuesta** | El backend interpreta correctamente la respuesta del servicio de pagos, registra el resultado y decide continuar o abortar la inscripción según corresponda |
+| **Medida de Respuesta** | En pruebas de integración, 100% de las respuestas de pago (aprobado/rechazado) deben ser interpretadas y persistidas correctamente en el sistema |
+markdown
+Copiar código
+| **ID:** EC017 | **Atributo de Calidad (ISO/IEC 25010):** Compatibilidad / Interoperabilidad | **Versión** | **1.0** |
+|----------------|--------------------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Servicio de backend que solicita enviar correos de confirmación |
+| **Estímulo** | El backend invoca al servicio de correo electrónico para enviar la confirmación de una inscripción registrada |
+| **Artefacto** | Servicio de integración de correo en el backend |
+| **Ambiente** | Sistema en operación normal con conectividad al servicio de correo |
+| **Respuesta** | El backend transmite los datos necesarios (correo institucional, contenido de la inscripción) al servicio de correo y recibe la confirmación de entrega o error |
+| **Medida de Respuesta** | En pruebas de integración, 100% de las solicitudes válidas de envío deben llegar al servicio de correo y generar un registro de éxito o error en el sistema |
+markdown
+Copiar código
+| **ID:** EC018 | **Atributo de Calidad (ISO/IEC 25010):** Seguridad - Trazabilidad / Responsabilidad | **Versión** | **1.0** |
+|----------------|------------------------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Administrador, auditor o proceso de soporte que revisa pagos de cursos de extensión |
+| **Estímulo** | Solicita información sobre el estado de pagos asociados a inscripciones de cursos de extensión |
+| **Artefacto** | Módulo de registro de transacciones de pago en el backend |
+| **Ambiente** | Sistema en operación normal con pagos realizados (aprobados y rechazados) |
+| **Respuesta** | El sistema dispone de registros persistidos con el resultado de cada transacción de pago (aprobado/rechazado), vinculados a estudiante, curso, horario y referencia de pago |
+| **Medida de Respuesta** | En auditorías internas, 100% de las inscripciones de cursos de extensión deben tener un registro de transacción de pago asociado |
+markdown
+Copiar código
+| **ID:** EC019 | **Atributo de Calidad (ISO/IEC 25010):** Fiabilidad - Madurez / Registro de fallos | **Versión** | **1.0** |
+|----------------|-----------------------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Servicio de backend que intenta enviar un correo de confirmación |
+| **Estímulo** | Se produce un error al intentar enviar el correo a través del servicio de correo electrónico |
+| **Artefacto** | Módulo de envío de correo y de registro de incidentes en el backend |
+| **Ambiente** | Sistema en operación normal con posibles fallos temporales en el servicio de correo |
+| **Respuesta** | El sistema registra un incidente con la información relevante del error de envío sin anular la inscripción asociada |
+| **Medida de Respuesta** | En pruebas de fallo de envío, 100% de los errores deben generar un registro de incidente persistido en el sistema |
+markdown
+Copiar código
+| **ID:** EC020 | **Atributo de Calidad (ISO/IEC 25010):** Fiabilidad - Tolerancia a fallos | **Versión** | **1.0** |
+|----------------|----------------------------------------------------------------------------|-------------|----------|
+| **Fuente** | Cliente de API que consulta cursos, horarios o cupos |
+| **Estímulo** | Se produce un error en el backend (fallo de base de datos u otro componente) durante la consulta |
+| **Artefacto** | Servicios de backend de consulta de cursos, horarios y cupos |
+| **Ambiente** | Sistema en operación normal con posibles fallos internos puntuales |
+| **Respuesta** | El sistema devuelve una respuesta de error genérico indicando que la consulta no pudo completarse y no entrega datos incompletos o inconsistentes |
+| **Medida de Respuesta** | En pruebas de fallo forzado, 100% de los errores de consulta deben devolver respuestas de error sin datos parciales ni incoherentes |
+markdown
+Copiar código
+| **ID:** EC021 | **Atributo de Calidad (ISO/IEC 25010):** Fiabilidad - Madurez | **Versión** | **1.0** |
+|----------------|-------------------------------------------------------------|-------------|----------|
+| **Fuente** | Servicio de backend que envía correos de confirmación después de registrar inscripciones |
+| **Estímulo** | Se produce un fallo en el envío del correo de confirmación tras haber registrado la inscripción en el sistema |
+| **Artefacto** | Servicios de backend de inscripción y notificación por correo |
+| **Ambiente** | Sistema en operación normal con integración al servicio de correo que puede fallar ocasionalmente |
+| **Respuesta** | El sistema mantiene la inscripción registrada como válida, registra el incidente de fallo de envío y no revierte la operación de inscripción |
+| **Medida de Respuesta** | En pruebas de fallo de correo, 100% de las inscripciones deben permanecer registradas correctamente aun cuando falle el envío del correo |

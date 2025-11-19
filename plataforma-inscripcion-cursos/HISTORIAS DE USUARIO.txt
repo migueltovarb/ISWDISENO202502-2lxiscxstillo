@@ -1,0 +1,250 @@
+|Identificador|HU_001_AUTENTICACION_ESTUDIANTE| 
+|--------------|-------------------------------|
+|Título|Autenticación estudiante|
+|Descripción|Como estudiante, quiero poder registrarme e iniciar sesión en la plataforma, para acceder a las funciones de inscripción y consulta de cursos.|
+|Criterios de aceptación|#El sistema debe permitir el registro ingresando los campos: nombre, apellidos, número de estudiante, correo institucional y contraseña.|
+||#El sistema debe validar que el correo pertenezca al dominio institucional antes de registrar al usuario.|
+||#El sistema debe validar que todos los campos obligatorios estén completos y cumplan el formato establecido (por ejemplo: correo válido, longitud mínima de contraseña).|
+||#El sistema debe impedir el registro si el número de estudiante ya se encuentra registrado.|
+||#El sistema debe impedir el registro si el correo institucional ya se encuentra registrado.|
+||#El sistema debe permitir inicio de sesión con correo institucional y contraseña válidos previamente registrados.|
+||#Si las credenciales son incorrectas, debe mostrarse el mensaje: “Usuario o contraseña incorrectos”.|
+||#Si el usuario intenta iniciar sesión con un correo no registrado, el sistema debe mostrar un mensaje indicando que el usuario no existe.|
+||#Tras autenticación exitosa, el sistema debe redirigir al panel principal del estudiante.|
+||#El sistema debe almacenar las contraseñas de forma cifrada en la base de datos.|
+||#El sistema debe mantener la sesión activa mientras el usuario interactúe con la plataforma y hasta un tiempo de expiración configurado sin actividad.|
+||#El sistema debe permitir al estudiante cerrar sesión de forma explícita desde la interfaz.|
+|Mockup|[Mockup](https://github.com/migueltovarb/ISWDISENO202502-2lxiscxstillo/blob/main/wireframes/1.png)|
+|Autor|Luis Esteban Castillo Pedroza|
+markdown
+Copiar código
+|Identificador|HU_002_CONSULTAR_CURSOS_DISPONIBLES| 
+|--------------|-----------------------------------|
+|Título|Consulta de cursos disponibles|
+|Descripción|Como estudiante, quiero consultar el listado de cursos disponibles, para decidir en cuál inscribirme.|
+|Criterios de aceptación|#El sistema debe requerir que el estudiante tenga una sesión activa para acceder al listado de cursos.|
+||#El sistema debe mostrar un listado de cursos disponibles para inscripción, indicando como mínimo: nombre del curso, descripción general, tipo de curso (regular o de extensión) y estado de disponibilidad.|
+||#El sistema debe mostrar únicamente los cursos que se encuentren activos y habilitados para inscripción.|
+||#El sistema debe permitir visualizar el detalle de un curso seleccionado, incluyendo sus horarios y cupos disponibles (cuando existan).|
+||#Si no existen cursos disponibles, el sistema debe mostrar un mensaje informando que no hay cursos habilitados en ese momento.|
+||#El sistema debe responder en un tiempo razonable a la consulta, mostrando el listado sin errores de carga.|
+||#Si ocurre un error al obtener la información de los cursos, el sistema debe mostrar un mensaje de error genérico y no debe mostrar datos incompletos o inconsistentes.|
+|Mockup|[Mockup](poner link del mockup)|
+|Autor|Luis Esteban Castillo Pedroza|
+markdown
+Copiar código
+|Identificador|HU_003_CONSULTAR_HORARIOS_CUPOS| 
+|--------------|------------------------------|
+|Título|Consulta de horarios y cupos de un curso|
+|Descripción|Como estudiante, quiero consultar los horarios y cupos disponibles de un curso, para elegir el horario que más se ajuste a mi disponibilidad.|
+|Criterios de aceptación|#El sistema debe permitir que el estudiante seleccione un curso del listado para ver sus horarios asociados.|
+||#Para cada horario del curso, el sistema debe mostrar como mínimo: día(s) de la semana, hora de inicio, hora de fin y número de cupos disponibles.|
+||#El sistema debe calcular y mostrar los cupos disponibles por horario a partir del cupo máximo definido y las inscripciones ya registradas.|
+||#Si un horario no tiene cupos disponibles (0 cupos), el sistema debe indicarlo claramente como “Sin cupos disponibles” o equivalente.|
+||#Si un curso no tiene horarios configurados, el sistema debe mostrar un mensaje informando que aún no hay horarios disponibles para ese curso.|
+||#El sistema debe requerir que el estudiante tenga sesión activa para consultar horarios y cupos.|
+||#Si ocurre un error al obtener la información de horarios o cupos, el sistema debe mostrar un mensaje de error genérico y no mostrar datos incorrectos.|
+|Mockup|[Mockup](poner link del mockup)|
+|Autor|Luis Esteban Castillo Pedroza|
+markdown
+Copiar código
+|Identificador|HU_004_INSCRIPCION_CURSO_REGULAR| 
+|--------------|--------------------------------|
+|Título|Inscripción en curso regular|
+|Descripción|Como estudiante, quiero inscribirme en un curso regular seleccionando un horario disponible, para poder cursarlo en el periodo académico.|
+|Criterios de aceptación|#El sistema debe requerir que el estudiante tenga sesión activa para realizar la inscripción.|
+||#El sistema debe permitir al estudiante seleccionar un curso regular y uno de sus horarios disponibles para completar la inscripción.|
+||#Antes de confirmar la inscripción, el sistema debe validar que el horario seleccionado tenga al menos 1 cupo disponible.|
+||#Si no hay cupos disponibles en el horario seleccionado, el sistema debe impedir la inscripción y mostrar un mensaje indicando que el cupo está agotado.|
+||#Si la validación de cupos es exitosa, el sistema debe registrar la inscripción, asociando estudiante, curso y horario.|
+||#Al registrar la inscripción, el sistema debe actualizar el número de cupos disponibles del horario, disminuyéndolo en 1.|
+||#El sistema debe impedir que un estudiante se inscriba más de una vez al mismo curso y horario.|
+||#El sistema debe notificar al estudiante en la interfaz cuando la inscripción se haya completado exitosamente.|
+||#El sistema debe evitar sobrepasar el cupo máximo del horario incluso ante múltiples solicitudes concurrentes de inscripción.|
+||#En caso de error durante el registro de la inscripción, el sistema no debe modificar los cupos disponibles y debe mostrar un mensaje de error al estudiante.|
+|Mockup|[Mockup](poner link del mockup)|
+|Autor|Luis Esteban Castillo Pedroza|
+markdown
+Copiar código
+|Identificador|HU_005_INSCRIPCION_PAGO_CURSO_EXTENSION| 
+|--------------|----------------------------------------|
+|Título|Inscripción y pago de curso de extensión|
+|Descripción|Como estudiante, quiero inscribirme en un curso de extensión y realizar el pago en línea, para asegurar mi cupo en dicho curso.|
+|Criterios de aceptación|#El sistema debe requerir que el estudiante tenga sesión activa para inscribirse en un curso de extensión.|
+||#El sistema debe permitir que el estudiante seleccione un curso identificado como “curso de extensión” y uno de sus horarios disponibles.|
+||#Antes de iniciar el proceso de pago, el sistema debe validar que el horario seleccionado tenga al menos 1 cupo disponible.|
+||#El sistema debe mostrar el valor a pagar del curso de extensión antes de redirigir o invocar el servicio de pagos en línea.|
+||#El sistema debe integrarse con el servicio de pagos en línea para procesar la transacción asociada al curso de extensión.|
+||#El sistema debe registrar el resultado de la transacción de pago (aprobado o rechazado) retornado por el servicio de pagos.|
+||#Si el pago es aprobado, el sistema debe registrar la inscripción del estudiante al curso de extensión, asociando estudiante, curso, horario y referencia de pago.|
+||#Si el pago es aprobado, el sistema debe actualizar los cupos disponibles del horario, disminuyéndolos en 1.|
+||#Si el pago es rechazado o no se completa, el sistema no debe registrar la inscripción ni modificar los cupos disponibles.|
+||#El sistema debe mostrar un mensaje claro al estudiante cuando el pago sea aprobado y la inscripción confirmada.|
+||#El sistema debe mostrar un mensaje claro al estudiante cuando el pago sea rechazado o falle, indicando que la inscripción no se ha realizado.|
+||#El sistema debe evitar sobrepasar el cupo máximo del horario, incluso ante múltiples intentos concurrentes de pago para el mismo curso y horario.|
+|Mockup|[Mockup](poner link del mockup)|
+|Autor|Luis Esteban Castillo Pedroza|
+markdown
+Copiar código
+|Identificador|HU_006_CONFIRMACION_CORREO| 
+|--------------|-------------------------|
+|Título|Confirmación de inscripción por correo|
+|Descripción|Como estudiante, quiero recibir una confirmación por correo electrónico después de inscribirme en un curso, para tener un comprobante de mi inscripción.|
+|Criterios de aceptación|#El sistema debe enviar un correo de confirmación al correo institucional del estudiante cuando una inscripción haya sido registrada exitosamente.|
+||#El correo de confirmación debe incluir como mínimo: nombre del curso, tipo de curso (regular o de extensión), horario seleccionado y fecha de inscripción.|
+||#Para cursos de extensión, el correo también debe incluir la información básica del pago: estado aprobado y referencia o identificador de la transacción.|
+||#El envío de correo solo debe realizarse si la inscripción se ha registrado de forma exitosa en el sistema.|
+||#Si ocurre un error en el envío del correo, el sistema debe registrar el incidente para seguimiento, pero no debe anular la inscripción ya registrada.|
+||#El sistema debe utilizar el correo institucional almacenado en el perfil del estudiante para el envío de la confirmación.|
+||#El sistema debe enviar la confirmación de manera automática sin requerir acciones adicionales por parte del estudiante.|
+|Mockup|[Mockup](poner link del mockup)|
+|Autor|Luis Esteban Castillo Pedroza|
+markdown
+Copiar código
+|Identificador|HU_007_AUTENTICACION_ADMINISTRADOR| 
+|--------------|----------------------------------|
+|Título|Autenticación administrador|
+|Descripción|Como administrador, quiero poder iniciar sesión en la plataforma, para gestionar cursos, profesores y horarios.|
+|Criterios de aceptación|#El sistema debe permitir el inicio de sesión de administradores mediante credenciales válidas definidas por la institución (usuario/correo y contraseña).|
+||#El sistema debe diferenciar claramente el rol de administrador del rol de estudiante para aplicar los permisos correspondientes.|
+||#Si las credenciales de administrador son incorrectas, el sistema debe mostrar un mensaje de error sin revelar detalles de seguridad.|
+||#Tras autenticación exitosa, el sistema debe redirigir al administrador al panel de gestión (cursos, profesores, horarios).|
+||#El sistema debe mantener la sesión activa del administrador hasta el cierre voluntario o la expiración por inactividad configurada.|
+||#El sistema debe impedir el acceso a funcionalidades de gestión si el usuario no tiene rol de administrador o no tiene sesión activa.|
+|Mockup|[Mockup](poner link del mockup)|
+|Autor|Luis Esteban Castillo Pedroza|
+markdown
+Copiar código
+|Identificador|HU_008_CREAR_CURSO_ADMIN| 
+|--------------|------------------------|
+|Título|Crear curso|
+|Descripción|Como administrador, quiero registrar nuevos cursos en la plataforma, para que los estudiantes puedan verlos e inscribirse en ellos.|
+|Criterios de aceptación|#El sistema debe requerir que el usuario tenga rol de administrador y sesión activa para acceder a la funcionalidad de creación de cursos.|
+||#El sistema debe permitir registrar un nuevo curso indicando como mínimo: nombre del curso, descripción, tipo de curso (regular o de extensión), cupo máximo y estado inicial (activo/inactivo).|
+||#El sistema debe validar que todos los campos obligatorios estén completos antes de permitir guardar el curso.|
+||#El sistema debe validar que el cupo máximo sea un número entero mayor que 0.|
+||#El sistema debe impedir registrar cursos duplicados según las políticas de la institución (por ejemplo, mismo nombre y mismo tipo).|
+||#Al guardar un curso nuevo exitosamente, el sistema debe mostrar un mensaje de confirmación al administrador.|
+||#En caso de error al registrar el curso, el sistema debe mostrar un mensaje de error y no debe guardar datos incompletos o inconsistentes.|
+|Mockup|[Mockup](poner link del mockup)|
+|Autor|Luis Esteban Castillo Pedroza|
+markdown
+Copiar código
+|Identificador|HU_009_ACTUALIZAR_CURSO_ADMIN| 
+|--------------|----------------------------|
+|Título|Actualizar curso|
+|Descripción|Como administrador, quiero editar la información de un curso existente, para mantener actualizado el catálogo de cursos.|
+|Criterios de aceptación|#El sistema debe requerir que el usuario tenga rol de administrador y sesión activa para acceder a la funcionalidad de edición de cursos.|
+||#El sistema debe permitir seleccionar un curso existente desde un listado o buscador para editar su información.|
+||#El sistema debe permitir modificar como mínimo: nombre, descripción, tipo de curso, cupo máximo y estado.|
+||#El sistema debe validar los campos obligatorios y el formato de los datos antes de guardar los cambios.|
+||#Si el administrador intenta reducir el cupo máximo por debajo del número de estudiantes ya inscritos, el sistema debe impedir la operación o solicitar una confirmación especial, según la política definida.|
+||#Al guardar los cambios correctamente, el sistema debe mostrar un mensaje de confirmación al administrador.|
+||#En caso de error al actualizar el curso, el sistema debe mostrar un mensaje de error y no debe aplicar cambios parciales.|
+|Mockup|[Mockup](poner link del mockup)|
+|Autor|Luis Esteban Castillo Pedroza|
+markdown
+Copiar código
+|Identificador|HU_010_CAMBIAR_ESTADO_CURSO_ADMIN| 
+|--------------|---------------------------------|
+|Título|Cambiar estado de curso (activar/desactivar)|
+|Descripción|Como administrador, quiero activar o desactivar cursos, para controlar cuáles están disponibles para nuevas inscripciones sin perder el historial.|
+|Criterios de aceptación|#El sistema debe requerir que el usuario tenga rol de administrador y sesión activa para cambiar el estado de un curso.|
+||#El sistema debe permitir al administrador cambiar el estado de un curso entre activo e inactivo.|
+||#Cuando un curso esté inactivo, no debe aparecer disponible para nuevas inscripciones en la vista de estudiantes.|
+||#El sistema debe mantener las inscripciones históricas de cursos inactivos para consulta o trazabilidad.|
+||#Si el administrador intenta desactivar un curso con inscripciones activas en el periodo actual, el sistema debe mostrar un mensaje de advertencia y solicitar confirmación antes de aplicar el cambio de estado.|
+||#El sistema debe mostrar un mensaje de confirmación cuando el estado del curso se cambie exitosamente.|
+||#En caso de error al cambiar el estado del curso, el sistema debe mostrar un mensaje de error y mantener el estado anterior.|
+|Mockup|[Mockup](poner link del mockup)|
+|Autor|Luis Esteban Castillo Pedroza|
+markdown
+Copiar código
+|Identificador|HU_011_REGISTRAR_PROFESOR_ADMIN| 
+|--------------|-------------------------------|
+|Título|Registrar profesor|
+|Descripción|Como administrador, quiero registrar la información de nuevos profesores, para poder asociarlos a los cursos que ofrece la universidad.|
+|Criterios de aceptación|#El sistema debe requerir que el usuario tenga rol de administrador y sesión activa para registrar profesores.|
+||#El sistema debe permitir registrar un profesor con datos básicos como mínimo: nombre completo, identificación y correo de contacto.|
+||#El sistema debe validar que los campos obligatorios estén completos y que el correo tenga un formato válido.|
+||#El sistema debe evitar registrar dos profesores con la misma identificación.|
+||#Al registrar un profesor exitosamente, el sistema debe mostrar un mensaje de confirmación al administrador.|
+||#En caso de error al registrar un profesor, el sistema debe mostrar un mensaje de error y no debe guardar datos incompletos o inconsistentes.|
+|Mockup|[Mockup](poner link del mockup)|
+|Autor|Luis Esteban Castillo Pedroza|
+markdown
+Copiar código
+|Identificador|HU_012_ACTUALIZAR_PROFESOR_ADMIN| 
+|--------------|--------------------------------|
+|Título|Actualizar información de profesor|
+|Descripción|Como administrador, quiero actualizar la información de un profesor registrado, para mantener sus datos al día.|
+|Criterios de aceptación|#El sistema debe requerir que el usuario tenga rol de administrador y sesión activa para editar profesores.|
+||#El sistema debe permitir seleccionar un profesor existente desde un listado o buscador.|
+||#El sistema debe permitir modificar los datos básicos del profesor, como nombre completo, correo de contacto y otros campos permitidos.|
+||#El sistema debe validar el formato de los datos (por ejemplo, correo válido) antes de guardar los cambios.|
+||#Al guardar los cambios correctamente, el sistema debe mostrar un mensaje de confirmación al administrador.|
+||#En caso de error al actualizar los datos del profesor, el sistema debe mostrar un mensaje de error y no debe aplicar cambios parciales.|
+|Mockup|[Mockup](poner link del mockup)|
+|Autor|Luis Esteban Castillo Pedroza|
+markdown
+Copiar código
+|Identificador|HU_013_CAMBIAR_ESTADO_PROFESOR_ADMIN| 
+|--------------|-------------------------------------|
+|Título|Cambiar estado de profesor (activar/desactivar)|
+|Descripción|Como administrador, quiero activar o desactivar profesores, para que solo se asignen a cursos aquellos que están disponibles.|
+|Criterios de aceptación|#El sistema debe requerir que el usuario tenga rol de administrador y sesión activa para cambiar el estado de un profesor.|
+||#El sistema debe permitir cambiar el estado de un profesor entre activo e inactivo.|
+||#Cuando un profesor esté inactivo, el sistema no debe permitir asignarlo a nuevos cursos o nuevos horarios.|
+||#El sistema debe mantener el historial de participación del profesor en cursos anteriores aunque esté inactivo.|
+||#Si el profesor tiene cursos o horarios activos asociados, el sistema debe mostrar una advertencia al administrador antes de desactivarlo.|
+||#El sistema debe mostrar un mensaje de confirmación cuando el estado del profesor se cambie exitosamente.|
+||#En caso de error al cambiar el estado del profesor, el sistema debe mostrar un mensaje de error y mantener el estado anterior.|
+|Mockup|[Mockup](poner link del mockup)|
+|Autor|Luis Esteban Castillo Pedroza|
+markdown
+Copiar código
+|Identificador|HU_014_CREAR_HORARIO_CURSO_ADMIN| 
+|--------------|--------------------------------|
+|Título|Crear horario de curso|
+|Descripción|Como administrador, quiero crear horarios para un curso, para que los estudiantes puedan ver opciones de días y horas al inscribirse.|
+|Criterios de aceptación|#El sistema debe requerir que el usuario tenga rol de administrador y sesión activa para crear horarios.|
+||#El sistema debe permitir seleccionar un curso existente al cual asociar el nuevo horario.|
+||#El sistema debe permitir registrar como mínimo: día(s) de la semana, hora de inicio y hora de fin del horario.|
+||#El sistema debe validar que la hora de fin sea posterior a la hora de inicio.|
+||#El sistema debe impedir crear horarios con rangos de tiempo superpuestos para el mismo curso y mismo grupo, si la política académica así lo requiere.|
+||#Al guardar el nuevo horario exitosamente, el sistema debe mostrar un mensaje de confirmación al administrador.|
+||#En caso de error al registrar el horario, el sistema debe mostrar un mensaje de error y no debe guardar datos incompletos o inconsistentes.|
+|Mockup|[Mockup](poner link del mockup)|
+|Autor|Luis Esteban Castillo Pedroza|
+markdown
+Copiar código
+|Identificador|HU_015_ACTUALIZAR_HORARIO_CURSO_ADMIN| 
+|--------------|-------------------------------------|
+|Título|Actualizar horario de curso|
+|Descripción|Como administrador, quiero modificar la información de un horario de curso, para ajustar cambios de día u hora cuando sea necesario.|
+|Criterios de aceptación|#El sistema debe requerir que el usuario tenga rol de administrador y sesión activa para editar horarios.|
+||#El sistema debe permitir seleccionar un horario existente asociado a un curso para su edición.|
+||#El sistema debe permitir modificar como mínimo: día(s) de la semana, hora de inicio y hora de fin.|
+||#El sistema debe validar nuevamente que la hora de fin sea posterior a la hora de inicio.|
+||#Si el horario tiene estudiantes inscritos, el sistema debe mostrar una advertencia indicando que el cambio podría afectar a los inscritos.|
+||#Al guardar los cambios correctamente, el sistema debe mostrar un mensaje de confirmación al administrador.|
+||#En caso de error al actualizar el horario, el sistema debe mostrar un mensaje de error y no debe aplicar cambios parciales.|
+|Mockup|[Mockup](poner link del mockup)|
+|Autor|Luis Esteban Castillo Pedroza|
+markdown
+Copiar código
+|Identificador|HU_016_CAMBIAR_ESTADO_HORARIO_CURSO_ADMIN| 
+|--------------|-----------------------------------------|
+|Título|Cambiar estado de horario (activar/desactivar)|
+|Descripción|Como administrador, quiero activar o desactivar horarios de un curso, para controlar cuáles están disponibles para nuevas inscripciones.|
+|Criterios de aceptación|#El sistema debe requerir que el usuario tenga rol de administrador y sesión activa para cambiar el estado de un horario.|
+||#El sistema debe permitir cambiar el estado de un horario entre activo e inactivo.|
+||#Cuando un horario esté inactivo, no debe aparecer como opción seleccionable en los procesos de inscripción de estudiantes.|
+||#El sistema debe mantener la referencia a inscripciones ya realizadas sobre horarios inactivos para fines de historial o consulta.|
+||#Si existen estudiantes inscritos en el horario, el sistema debe mostrar una advertencia antes de desactivarlo.|
+||#El sistema debe mostrar un mensaje de confirmación cuando el estado del horario se cambie exitosamente.|
+||#En caso de error al cambiar el estado del horario, el sistema debe mostrar un mensaje de error y mantener el estado anterior.|
+|Mockup|[Mockup](poner link del mockup)|
+|Autor|Luis Esteban Castillo Pedroza|
+
+
